@@ -9,12 +9,13 @@ import {
   userLogout,
   getUserProfile,
   editUserProfile,
+
 } from "../controller/userController.js";
 
 Router.post("/register", userRegister);
 Router.post("/login", userLogin);
 Router.post("/logout", isUserLogged, userLogout);
 Router.get("/profile", isUserLogged, getUserProfile);
-Router.put("/editProfile",upload.single('file'), isUserLogged, editUserProfile)
+Router.post("/editProfile",upload.single("file"), isUserLogged, editUserProfile)
 
 export default Router;

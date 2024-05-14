@@ -56,11 +56,10 @@ const userLogin = asyncHandler(async (req, res) => {
       generateToken(res, userExists._id);
       res.status(201).json(userExists);
     } else {
-      res.status(400).json("Invalid Email or Password")
+      res.status(400).json("Invalid Email or Password");
       throw new Error("Password is incorrect");
-
     }
-  }else {
+  } else {
     res.status(400).json("No user found");
   }
 });
@@ -84,26 +83,34 @@ const getUserProfile = asyncHandler(async (req, res) => {
 });
 
 const editUserProfile = asyncHandler(async (req, res) => {
+  console.log(req.files,"req.file");
+  console.log(req.body, "req.body");
   const userExists = await User.findById(req.user._id);
   if (userExists) {
     userExists.username = req.body.username || userExists.username;
     userExists.email = req.body.email || userExists.email;
     userExists.phone = req.body.phone || userExists.phone;
+
+    if (req.file) {
+      userExists.image = req.file.filename || userExists.image;
+    }
+    
     if (req.body.password) {
       const passwordHash = await securePassword(req.body.password);
       userExists.password = passwordHash;
     }
+    console.log("hereeeeee");
     await userExists.save();
-    res.status(200).json({
-      _id: userExists._id,
-      username: userExists.username,
-      email: userExists.email,
-      phone: userExists.phone,
-    });
+    console.log(userExists);
+    res.status(200).json(userExists);
+    console.log("User updated");
   } else {
     res.status(404);
     throw new Error("User not found");
   }
 });
+
+
+
 
 export { userRegister, userLogin, userLogout, getUserProfile, editUserProfile };

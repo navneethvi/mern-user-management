@@ -51,7 +51,7 @@ const Header = () => {
           >
             <img
               className="h-7 mr-1 rounded-full"
-              src="https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars.png"
+              src={userInfo.image}
               alt=""
             />
             {userInfo ? (

@@ -19,7 +19,8 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   image: {
-    type: String
+    type: String,
+    default : "https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars.png"
   },
 });
 
