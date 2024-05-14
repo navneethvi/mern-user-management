@@ -49,7 +49,6 @@ function Login() {
             User Login
           </h1>
 
-          {isLoading && <Loader />}
 
           <div className="relative z-0 w-full mb-5 group">
             <input
@@ -81,6 +80,9 @@ function Login() {
               Password
             </label>
           </div>
+
+          
+          {isLoading && <Loader />}
 
           <button
             type="submit"

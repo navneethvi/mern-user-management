@@ -1,10 +1,20 @@
-import Header from "../components/Header";
+import { useEffect } from "react";
+
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const { userInfo } = useSelector((state) => state.auth);
 
-  console.log(userInfo);
+  const navigate = useNavigate()
+
+  useEffect(()=>{
+    if(!userInfo){
+        navigate('/login')
+    }
+  },[userInfo, navigate])
+
+  if(!userInfo) return null
 
   return (
     <div>
