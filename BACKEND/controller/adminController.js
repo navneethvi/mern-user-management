@@ -33,7 +33,6 @@ const adminLogout = asyncHandler(async (req, res) => {
 });
 
 const getAllUsers = asyncHandler(async (req, res) => {
-  console.log("list user invoked");
   const users = await User.find({ isAdmin: { $ne: 1 } });
   res.status(200).json(users);
 });
@@ -43,24 +42,26 @@ const editUser = asyncHandler(async (req, res) => {
 
   const body = req.body;
   const user = await User.findById(id);
+
   if (!user) {
     res.status(400);
     throw new Error("Invalid Id");
   }
-
+  console.log('ivde ethi');
   user.username = body.username || user.username;
   user.email = body.email || user.email;
   user.phone = body.phone || user.phone;
 
-  const updatedUser = await user.save();
+  const updatedUser = await User.save();
 
   res.status(200).json(updatedUser);
 });
 
 const deletUser = asyncHandler(async (req, res) => {
+  console.log(req.body);
   const id = req?.body?._id;
   const user = await User.findByIdAndDelete(id);
-
+  console.log("User deleted");
   res.status(200).json(user);
 });
 

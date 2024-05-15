@@ -7,7 +7,7 @@ const initialState = {
   adminInfo: localStorage.getItem("adminInfo")
     ? JSON.parse(localStorage.getItem("adminInfo"))
     : null,
-  userForEdit: {},
+  userForEdit: {}
 };
 
 const authSlice = createSlice({
@@ -31,7 +31,7 @@ const authSlice = createSlice({
         state.adminInfo = null, localStorage.removeItem('adminInfo')
     },
     userDetails:(state,action)=>{
-        console.log(action.payload);
+        console.log(action.payload, "payload");
         state.userForEdit= action.payload
     }
   },

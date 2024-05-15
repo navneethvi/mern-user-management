@@ -18,7 +18,7 @@ function AdminLogin() {
 
   useEffect(() => {
     if (adminInfo) {
-      navigate("/admin");
+      navigate("/admin/dash");
     }
   }, [navigate, adminInfo]);
 
@@ -86,14 +86,7 @@ function AdminLogin() {
           >
             Login
           </button>
-          <h3
-            className="text-center mt-8 cursor-pointer"
-            onClick={() => {
-              navigate("/register");
-            }}
-          >
-            Dont have an account? Register
-          </h3>
+         
         </form>
       </div>
     </Fragment>

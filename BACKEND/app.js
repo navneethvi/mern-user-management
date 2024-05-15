@@ -20,6 +20,7 @@ app.use(cookieParser())
 
 app.use(express.static('app/public/'))
 
+
 app.use('/api', userRoutes)
 app.use('/api/admin', adminRoutes)
 
