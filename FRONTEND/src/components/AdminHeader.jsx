@@ -1,36 +1,48 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLogoutMutation } from "../slices/userApiSlice";
-import { logout } from "../slices/authSlice";
+import { logout, adminLogout } from "../slices/authSlice";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import LoginIcon from "@mui/icons-material/Login";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 
-const Header = () => {
+const AdminHeader = () => {
   const [showDropdown, setShowDropdown] = useState(false);
 
-  const userInfo = useSelector((state) => state.auth.userInfo);
+  const adminInfo = useSelector((state) => state.auth.adminInfo);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [logoutApiCall] = useLogoutMutation();
 
-  const handleLogoutUser = async () => {
+//   const [logoutApiCall] = useLogoutMutation();
+
+//   const handleLogoutUser = async () => {
+//     try {
+//       await logoutApiCall().unwrap();
+//       dispatch(logout());
+//       navigate("/login");
+//       setShowDropdown(false);
+//     } catch (error) {
+//       toast.error("User Logout Error");
+//       console.error("Error occurred:", error);
+//     }
+//   };
+
+  const handleAdminLogout = async () => {
     try {
-      await logoutApiCall().unwrap();
-      dispatch(logout());
-      navigate("/login");
+      dispatch(adminLogout());
+      navigate("/admin");
       setShowDropdown(false);
     } catch (error) {
-      toast.error("User Logout Error");
+      toast.error("Admin Logout Error");
       console.error("Error occurred:", error);
     }
   };
 
   useEffect(() => {
     setShowDropdown(false);
-  }, [userInfo]);
+  }, [adminInfo]);
 
   return (
     <div className="h-14 bg-black w-full flex items-center justify-between">
@@ -42,18 +54,18 @@ const Header = () => {
         </h1>
       </Link>
 
-      {userInfo ? (
+      {adminInfo ? (
         <div className="relative inline-block mr-10">
           <button
             className="flex items-center focus:outline-none"
             onClick={() => setShowDropdown(!showDropdown)}
           >
             <img
-              className="h-9 w-9 mr-1 rounded-full"
-              src={`http://localhost:5000/images/${userInfo.image}`}
+              className="h-7 mr-1 rounded-full"
+              src={adminInfo?.image}
               alt=""
             />
-            <p className="text-white mr-4">{userInfo?.username}</p>
+            <p className="text-white mr-4">{adminInfo?.username}</p>
           </button>
 
           {showDropdown && (
@@ -66,9 +78,10 @@ const Header = () => {
                   Profile
                 </button>
               </Link>
+
               <button
                 className="block py-2 px-4 text-sm text-gray-800 hover:bg-gray-100 w-full text-left focus:outline-none"
-                onClick={handleLogoutUser}
+                onClick={handleAdminLogout}
               >
                 Logout
               </button>
@@ -93,4 +106,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default AdminHeader;

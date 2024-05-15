@@ -1,14 +1,17 @@
-import multer from "multer";
+import multer from "multer"
 
 const storage = multer.diskStorage({
-    destination: (req, file, cb)=>{
-        return cb(null, "server/public/images/")
+    destination: (req, file, cb) => {
+      console.log("Destination:", "public/images/");
+      cb(null, "public/images/");
     },
     filename: (req, file, cb) => {
-        cb(null, Date.now() + "-" + file.originalname);
-    }
-})
-
-export const upload = multer({
-    storage:storage
-})
+      console.log("File:", file, "IMAGE DETAILS");
+      cb(null, Date.now() + file.originalname);
+    },
+  });
+  
+  // Create multer instance
+  export const upload = multer({
+    storage: storage
+  });

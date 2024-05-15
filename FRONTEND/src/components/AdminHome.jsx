@@ -6,6 +6,7 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditIcon from "@mui/icons-material/Edit";
 import { toast } from "react-toastify";
 import { userDetails } from "../slices/authSlice";
+import AdminHeader from "./AdminHeader";
 
 function AdminHome() {
   const [users, setUsers] = useState([]);
@@ -44,6 +45,8 @@ function AdminHome() {
       )
     : users;
 
+    console.log(users, "users in the app");
+
   const handleDelete = async (user) => {
     try {
       await deleteUser(user);
@@ -66,6 +69,7 @@ function AdminHome() {
 
   return (
     <div>
+      <AdminHeader/>
       <h1 className="font-bold text-4xl mt-5 text-gray-500 text-center mb-10">
         Users List
       </h1>
@@ -90,7 +94,7 @@ function AdminHome() {
         <input
           type="search"
           id="default-search"
-          className="block w-1/3 p-4 ps-10 text-sm text-gray-800 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-300 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          className="block w-1/3 p-4 ps-10 text-sm text-gray-800 border border-gray-300 rounded-full bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-300 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="Search Usernames, Emails..."
           required
           value={search}
@@ -123,8 +127,7 @@ function AdminHome() {
             {filteredUsers ? (
               filteredUsers.map((user) => (
                 <tr key={user._id}>
-                  {" "}
-                  {/* Add a unique key for each table row */}
+                 
                   <td className="border border-gray-300 px-4 py-2">
                     {user.username}
                   </td>

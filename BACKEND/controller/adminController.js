@@ -39,7 +39,7 @@ const getAllUsers = asyncHandler(async (req, res) => {
 
 const editUser = asyncHandler(async (req, res) => {
   const id = req.body.userForEdit._id;
-
+  console.log(_id, "editUser");
   const body = req.body;
   const user = await User.findById(id);
 
@@ -52,7 +52,7 @@ const editUser = asyncHandler(async (req, res) => {
   user.email = body.email || user.email;
   user.phone = body.phone || user.phone;
 
-  const updatedUser = await User.save();
+  const updatedUser = await user.save();
 
   res.status(200).json(updatedUser);
 });

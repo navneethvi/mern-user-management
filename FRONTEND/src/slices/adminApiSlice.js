@@ -34,7 +34,9 @@ export const listUser = async () => {
 
 export const editUser = async (data) => {
   try {
-    const response = await axios.post(`${ADMIN_URL}/editUser`, data);
+    console.log(data, "dataaaaa");
+    const response = await axios.post(`/api/admin/editUser`, data);
+    console.log(response, "res");
     return response.data;
   } catch (error) {
     console.error("Edit user error", error);

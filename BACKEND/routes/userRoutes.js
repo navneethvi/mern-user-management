@@ -1,6 +1,7 @@
 import express from "express";
 import { isUserLogged } from "../middleware/authMiddleware.js";
-import { upload } from "../multer/multer.js";
+import  {upload}  from "../multer/multer.js";
+
 
 const Router = express.Router();
 import {
@@ -16,6 +17,6 @@ Router.post("/register", userRegister);
 Router.post("/login", userLogin);
 Router.post("/logout", isUserLogged, userLogout);
 Router.get("/profile", isUserLogged, getUserProfile);
-Router.post("/editProfile",upload.single("file"), isUserLogged, editUserProfile)
+Router.post("/editProfile", upload.single("image"), editUserProfile);
 
 export default Router;

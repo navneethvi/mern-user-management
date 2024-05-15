@@ -83,9 +83,12 @@ const getUserProfile = asyncHandler(async (req, res) => {
 });
 
 const editUserProfile = asyncHandler(async (req, res) => {
-  console.log(req.files,"req.file");
+  console.log(req.file, "req.file");
+
+
   console.log(req.body, "req.body");
-  const userExists = await User.findById(req.user._id);
+  const userExists = await User.findById(req.body._id);
+  console.log(userExists, "userExiats");
   if (userExists) {
     userExists.username = req.body.username || userExists.username;
     userExists.email = req.body.email || userExists.email;
@@ -101,7 +104,7 @@ const editUserProfile = asyncHandler(async (req, res) => {
     }
     console.log("hereeeeee");
     await userExists.save();
-    console.log(userExists);
+    console.log(userExists,"updateed");
     res.status(200).json(userExists);
     console.log("User updated");
   } else {

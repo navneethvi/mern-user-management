@@ -1,9 +1,11 @@
 import { useEffect, Fragment, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+// import { editUser } from "../slices/adminApiSlice";
 import { useUpdateUserMutation } from "../slices/userApiSlice";
 import { toast } from "react-toastify";
 import { setCredentials } from "../slices/authSlice";
+import AdminHeader from "./AdminHeader";
 
 const AdminEditUser = () => {
   const [username, setUsername] = useState("");
@@ -12,11 +14,12 @@ const AdminEditUser = () => {
 
   const  userForEdit  = useSelector((state) => state.auth.userForEdit);
 
+
+
   console.log(userForEdit, "after selector");
 
   useEffect(() => {
-    if (userForEdit
-    ) {
+    if (userForEdit) {
       setUsername(userForEdit.username);
       setEmail(userForEdit.email);
       setPhone(userForEdit.phone);
@@ -26,13 +29,16 @@ const AdminEditUser = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [updateUser] = useUpdateUserMutation();
+  const [updatedUser] = useUpdateUserMutation()
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        const updatedUser = { _id: userForEdit._id, username, email, phone };
-        const result = await updateUser(updatedUser).unwrap();
+        console.log("invoked");
+        const updatedUserD = { _id: userForEdit._id, username, email, phone };
+        console.log(updatedUserD, "updated user");
+        const result = await updatedUser(updatedUserD)
         dispatch(setCredentials(result));
         toast.success("User updated successfully");
         navigate("/admin/dash");
@@ -43,6 +49,7 @@ const AdminEditUser = () => {
 
   return (
     <Fragment>
+        <AdminHeader/>
       <div className="container flex justify-center items-center h-full mt-8">
         <div className="max-w-md w-full mx-auto bg-white-900 border border-gray-300 rounded-lg p-8">
           <form
